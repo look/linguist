@@ -1,0 +1,41 @@
+# Paths that should be detected as dependency management
+
+Y Cargo.toml
+Y Cargo.lock
+Y requirements.txt
+Y Pipfile
+Y Pipfile.lock
+Y dependencies.sh
+Y requirements.sh
+Y go.mod
+Y go.sum
+Y terraform.lock.hcl
+Y requirements.txt
+Y Pipfile
+Y Pipfile.lock
+Y pyproject.toml
+Y package.json
+Y package-lock.json
+Y yarn.lock
+Y Gemfile
+Y Gemfile.lock
+
+N main.rs
+N lib.rs
+N mod.rs
+N README.md
+N config.yml
+N settings.py
+N main.go
+N build.sh
+N index.html
+N app.js
+N server.js
+N init.vim
+N Dockerfile
+N Makefile
+N script.py
+N test.go
+N example.jupyter
+N main.tf
+N run.sh

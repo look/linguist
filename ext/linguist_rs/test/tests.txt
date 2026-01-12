@@ -1,0 +1,4 @@
+# Paths that should be detected as test files
+
+Y test/api_test.rb
+N testfile.rb

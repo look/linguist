@@ -1,0 +1,323 @@
+# List of sample files and if they are vendored (Y) or not (N)
+
+N Data/README
+N ext/extconf.rb
+
+# Dependencies
+Y dependencies/windows/headers/GL/glext.h
+
+# Node dependencies
+Y node_modules/coffee-script/lib/coffee-script.js
+
+# Bower Components
+Y bower_components/custom/custom.js
+Y app/bower_components/custom/custom.js
+Y vendor/assets/bower_components/custom/custom.js
+
+# Go dependencies
+N Godeps/Godeps.json
+Y Godeps/_workspace/src/github.com/kr/s3/sign.go
+
+Y .indent.pro
+
+# Rails vendor/
+Y vendor/plugins/will_paginate/lib/will_paginate.rb
+
+# Vendor/
+Y Vendor/my_great_file.h
+
+# "thirdparty" directory
+Y thirdparty/lib/main.c
+
+# "extern(al)" directory
+Y extern/util/__init__.py
+Y external/jquery.min.js
+Y externals/fmt/CMakeLists.txt
+Y External/imgui/imgui.h
+
+# C deps
+Y deps/http_parser/http_parser.c
+Y deps/v8/src/v8.h
+
+# Chart.js
+Y some/vendored/path/Chart.js
+N some/vendored/path/chart.js
+
+# CodeMirror deps
+Y codemirror/mode/blah.js
+Y codemirror/5.0/mode/blah.js
+
+# Debian packaging
+Y debian/cron.d
+
+# Django env
+Y env/foo.py
+
+# Erlang
+Y rebar
+
+# git config files
+Y some/path/.gitattributes
+Y .gitignore
+Y special/path/.gitmodules
+
+# Minified JavaScript and CSS
+Y foo.min.js
+Y foo.min.css
+Y foo-min.js
+Y foo-min.css
+N foomin.css
+N foo.min.txt
+
+#.osx
+Y .osx
+
+# Prototype
+N public/javascripts/application.js
+Y public/javascripts/prototype.js
+Y public/javascripts/effects.js
+Y public/javascripts/controls.js
+Y public/javascripts/dragdrop.js
+
+# jQuery
+Y jquery.js
+Y public/javascripts/jquery.js
+Y public/javascripts/jquery.min.js
+Y public/javascripts/jquery-1.7.js
+Y public/javascripts/jquery-1.7.min.js
+Y public/javascripts/jquery-1.5.2.js
+Y public/javascripts/jquery-1.6.1.js
+Y public/javascripts/jquery-1.6.1.min.js
+Y public/javascripts/jquery-1.10.1.js
+Y public/javascripts/jquery-1.10.1.min.js
+N public/javascripts/jquery.github.menu.js
+
+# jQuery UI
+Y themes/ui-lightness/jquery-ui.css
+Y themes/ui-lightness/jquery-ui-1.8.22.custom.css
+Y themes/ui-lightness/jquery.ui.accordion.css
+Y ui/i18n/jquery.ui.datepicker-ar.js
+Y ui/i18n/jquery-ui-i18n.js
+Y ui/jquery.effects.blind.js
+Y ui/jquery-ui-1.8.22.custom.js
+Y ui/jquery-ui-1.8.22.custom.min.js
+Y ui/jquery-ui-1.8.22.js
+Y ui/jquery-ui-1.8.js
+Y ui/jquery-ui.min.js
+Y ui/jquery.ui.accordion.js
+Y ui/minified/jquery.effects.blind.min.js
+Y ui/minified/jquery.ui.accordion.min.js
+
+# jQuery Gantt
+Y web-app/jquery-gantt/js/jquery.fn.gantt.js
+
+# jQuery fancyBox
+Y web-app/fancybox/jquery.fancybox.js
+
+# Fuel UX
+Y web-app/fuelux/js/fuelux.js
+
+# jQuery File Upload
+Y fileupload-9.0.0/jquery.fileupload-process.js
+
+# Slick
+Y web-app/slickgrid/controls/slick.columnpicker.js
+
+# Leaflet plugins
+Y leaflet-plugins/Leaflet.Coordinates-0.5.0.src.js
+Y leaflet-plugins/leaflet.draw-src.js
+Y leaflet-plugins/leaflet.spin.js
+
+# VSCode
+Y .vscode/settings.json
+N testing.vscode-testing
+
+# MooTools
+Y public/javascripts/mootools-core-1.3.2-full-compat.js
+Y public/javascripts/mootools-core-1.3.2-full-compat-yc.js
+
+# Dojo
+Y public/javascripts/dojo.js
+
+# MochiKit
+Y public/javascripts/MochiKit.js
+
+# YUI
+Y public/javascripts/yahoo-dom-event.js
+Y public/javascripts/yahoo-min.js
+Y public/javascripts/yuiloader-dom-event.js
+
+# WYS editors
+Y public/javascripts/ckeditor.js
+Y public/javascripts/tiny_mce.js
+Y public/javascripts/tiny_mce_popup.js
+Y public/javascripts/tiny_mce_src.js
+
+# Ace Editor
+Y ace-builds/src/ace.js
+Y static/project/ace-builds/src/ace.js
+
+# Fontello CSS files
+Y fontello.css
+Y fontello-ie7.css
+Y fontello-codes.css
+Y fontello-codes-ie7.css
+Y fontello-embedded.css
+Y assets/css/fontello.css
+Y assets/css/fontello-ie7.css
+Y assets/css/fontello-codes.css
+Y assets/css/fontello-codes-ie7.css
+Y assets/css/fontello-embedded.css
+
+# AngularJS
+Y public/javascripts/angular.js
+Y public/javascripts/angular.min.js
+
+# D3.js
+Y public/javascripts/d3.v3.js
+Y public/javascripts/d3.v3.min.js
+
+# Modernizr
+Y public/javascripts/modernizr-2.7.1.js
+Y public/javascripts/modernizr.custom.01009.js
+
+# Fabric
+Y fabfile.py
+
+# WAF
+Y waf
+
+# Visual Studio IntelliSense
+Y Scripts/jquery-1.7-vsdoc.js
+
+# Microsoft Ajax
+Y Scripts/MicrosoftAjax.debug.js
+Y Scripts/MicrosoftAjax.js
+Y Scripts/MicrosoftMvcAjax.debug.js
+Y Scripts/MicrosoftMvcAjax.js
+Y Scripts/MicrosoftMvcValidation.debug.js
+Y Scripts/MicrosoftMvcValidation.js
+
+# jQuery validation plugin (MS bundles this with asp.net mvc)
+Y Scripts/jquery.validate.js
+Y Scripts/jquery.validate.min.js
+Y Scripts/jquery.validate.unobtrusive.js
+Y Scripts/jquery.validate.unobtrusive.min.js
+Y Scripts/jquery.unobtrusive-ajax.js
+Y Scripts/jquery.unobtrusive-ajax.min.js
+
+# NuGet Packages
+Y packages/Modernizr.2.0.6/Content/Scripts/modernizr-2.0.6-development-only.js
+
+# Font Awesome
+Y some/asset/path/font-awesome.min.css
+Y some/asset/path/font-awesome.css
+
+# Normalize
+Y some/asset/path/normalize.css
+
+# Carthage
+Y Carthage/blah
+Y iOS/Carthage/blah
+N My-Carthage/blah
+N iOS/My-Carthage/blah
+
+# Html5shiv
+Y Scripts/html5shiv.js
+Y Scripts/html5shiv.min.js
+
+# Test fixtures
+Y test/fixtures/random.rkt
+Y Test/fixtures/random.rkt
+Y tests/fixtures/random.rkt
+
+# Cordova/PhoneGap
+Y cordova.js
+Y cordova.min.js
+Y cordova-2.1.0.js
+Y cordova-2.1.0.min.js
+
+# Foundation js
+Y foundation.js
+Y foundation.min.js
+Y foundation.abide.js
+
+# Vagrant
+Y Vagrantfile
+
+# Gradle
+Y gradlew
+Y gradlew.bat
+Y gradle/wrapper/gradle-wrapper.properties
+Y subproject/gradlew
+Y subproject/gradlew.bat
+Y subproject/gradle/wrapper/gradle-wrapper.properties
+
+# Maven
+Y mvnw
+Y mvnw.cmd
+Y .mvn/wrapper/maven-wrapper.properties
+Y subproject/mvnw
+Y subproject/mvnw.cmd
+Y subproject/.mvn/wrapper/maven-wrapper.properties
+
+# .DS_Store
+Y .DS_Store
+Y another-dir/.DS_Store
+
+# Octicons
+Y octicons.css
+Y public/octicons.min.css
+Y public/octicons/sprockets-octicons.scss
+
+# Typesafe Activator
+Y activator
+Y activator.bat
+Y subproject/activator
+Y subproject/activator.bat
+
+Y .google_apis/bar.jar
+Y foo/.google_apis/bar.jar
+
+# Sphinx docs
+Y docs/_build/asset.doc
+Y docs/theme/file.css
+
+# ProGuard
+Y proguard.pro
+Y proguard-rules.pro
+
+# Vagrant
+Y puphpet/file.pp
+
+# Fabric.io
+Y Fabric.framework/Fabric.h
+
+# Crashlytics
+Y Crashlytics.framework/Crashlytics.h
+Y myapp/My Template.xctemplate/___FILEBASENAME___.h
+Y myapp/My Images.xcassets/some/stuff.imageset/Contents.json
+N myapp/MyData.json
+
+# Jenkins
+Y Jenkinsfile
+
+# Bootstrap
+N src/bootstraps/settings.js
+N bootstrap/misc/other/reset.css
+Y bootstrap-1.4/misc/other/reset.css
+Y bootstrap.10.4/misc/other/reset.css
+Y src/bootstrap-5.4.1-beta-dist/js/bundle.js
+Y src/bootstrap-custom.js
+Y src/bootstrap-1.4.js
+Y src/bootstrap-5.4.1-beta-dist/js/bootstrap.bundle.js
+Y src/bootstrap-5.4.1-beta-dist/js/bootstrap.esm.js
+Y src/bootstrap-5.4.1-beta-dist/css/bootstrap.rtl.css
+
+# GitHub.com
+Y .github/CODEOWNERS
+Y .github/workflows/test.yml
+
+# obsidian.md settings
+Y .obsidian/app.json
+Y .obsidian/plugins/templater-obsidian/main.js

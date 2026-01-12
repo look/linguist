@@ -1,0 +1,43 @@
+[package]
+name = "linguist"
+version = "0.1.0"
+authors = ["The blackbird team <support@github.com>"]
+edition = "2024"
+
+[lib]
+crate-type = ["lib", "staticlib"]
+
+[features]
+c-bindings = ["cbindgen"]
+test-support = []
+
+[dependencies]
+metrics = { workspace = true }
+regex = { workspace = true }
+serde_yaml = "0.9"
+simdutf8 = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+criterion = "0.8"
+
+[build-dependencies]
+cbindgen = { version = "0.29", optional = true }
+serde_yaml = "0.9"
+
+# NB: must run with: cargo bench --features test-support
+[[bench]]
+name = "detect"
+path = "benches/detect.rs"
+harness = false
+required-features = ["test-support"]
+
+[package.metadata.deb]
+assets = [
+    # There seems to be a special case for `target` where it does the right thing without having to go up the tree.
+    [
+        "target/release/liblinguist.a",
+        "usr/local/lib/",
+        "755",
+    ],
+]

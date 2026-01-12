@@ -1,0 +1,80 @@
+#! /usr/bin/env bash
+#/ Usage: script/sync [-u] [path/to/github-linguist/linguist]
+#/
+#/   Syncs the linguist test samples and fixtures from github-linguist/linguist.
+#/   Optionally updates the yaml rule files too.
+#/
+#/
+#/   The script will check out a copy of github-linguist/linguist in a temporary
+#/   directory if the path to a copy is not provided.
+#/
+#/   OPTIONS:
+#/     -u    Update the linguist yaml files too
+#/     -h    Show this message and exit.
+#/
+#/   EXAMPLES:
+#/
+#/     script/sync
+#/     script/sync ~/github/linguist
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+function usage {
+    grep "^#/" "${BASH_SOURCE[0]}" | cut -c 4-
+}
+
+update=false
+while getopts ":hu" arg; do
+    case ${arg} in
+    h)
+        usage
+        exit 1
+        ;;
+    u)
+        update=true
+        shift
+        ;;
+    esac
+done
+
+if [[ $# -eq 0 ]]; then
+    repo_dir=$(mktemp -d)
+    git clone https://github.com/github-linguist/linguist.git $repo_dir
+else
+    repo_dir=$1
+fi
+
+if $update; then
+    # Update all the yaml files.
+    echo "Updating linguist yaml files"
+    cp $repo_dir/lib/linguist/*.yml src/linguist
+
+    sha=$(cd $repo_dir && git rev-parse HEAD)
+
+    echo $sha >"src/linguist/.manifest"
+
+    for f in $(ls src/linguist); do
+        if [[ $f == "tests.yml" ]]; then
+            continue
+        fi
+        f="src/linguist/$f"
+        echo "# Extracted from https://github.com/github-linguist/linguist/tree/$sha" | cat - $f >temp && mv temp $f
+    done
+else
+    # Otherwise, make sure we copy over a pinned version of the samples.
+    sha=$(cat "src/linguist/.manifest")
+    (cd $repo_dir && git checkout $sha)
+fi
+
+# Always sync samples and fixtures
+rm -rf test/samples
+rm -rf test/fixtures
+cp -r $repo_dir/samples test
+cp -r $repo_dir/test/fixtures test
+
+# cleanup the temporary repo
+if [[ $# -eq 0 ]]; then
+    rm -rf $repo_dir
+fi

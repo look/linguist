@@ -1,0 +1,16 @@
+# List of sample files and if they are indexable (Y) or not (N)
+
+N yarn.lock
+N go.sum
+N .gitignore
+N node_modules/grunt/lib/grunt.js
+N JavaScript/jquery-1.6.1.min.js
+N go/vendor/github.com/foo.go
+N go/vendor/golang.org/src/foo.c
+N go/vendor/gopkg.in/some/nested/path/foo.go
+N vendor/github.com/cenkalti/backoff/v4/backoff.go
+N vendor/test.txt
+Y src/main/java/com/testco/vendor/server/services/VendorAuthenticationManager.java
+N Pods/blah
+Y My-Pods/blah
+N Ruby/rails@7.0.3.1.rbi

@@ -1,0 +1,27 @@
+# List of samples to be skipped from testing because of incompatible regexes.
+# These should be fixed and removed.
+
+Adblock Filter List/Imperial Units Remover.txt
+Adblock Filter List/abp-filters-anti-cv.txt
+Adblock Filter List/anti-facebook.txt
+Adblock Filter List/fake-news.txt
+Adblock Filter List/test_rules.txt
+BitBake/tclibc-newlib.inc
+BitBake/xorg-driver-common.inc
+BrighterScript/Main.bs
+BrighterScript/RowListExample.bs
+BrighterScript/SimpleGrid.bs
+FreeMarker/example.ftl
+FreeMarker/layout.ftl
+Pkl/SchemaGenerator.pkl
+Pkl/Parser.pkl
+Pkl/rule.pkl
+Rez/Rezilla_DITL.r
+Rez/dialog.r
+Rez/gui_mac.r
+StringTemplate/ApiOverviewPage.st
+Win32 Message File/logmess.mc
+XML Property List/ff-man.plist
+XML Property List/info.min.plist
+XML Property List/info.plist
+XML Property List/man.plist

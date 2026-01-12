@@ -1,0 +1,140 @@
+# List of samples to be skipped from testing because we intentionally
+# don't support detecting them.
+
+# Files that aren't UTF8
+Roff/roff.1in
+Altium Designer/Sample Schematic Sheet.SchDoc
+Oberon/beNull.ob2
+
+# Files that we can't detect because they depend on the classifier
+AngelScript/botmanager.as
+AngelScript/payload.as
+Apex/AccountTrigger.trigger
+Apex/AddRelatedRecord.trigger
+Apex/LogTriggerHandler.trigger
+Assembly/fp_sqr32_160_comba.inc
+Assembly/lib.inc
+Assembly/macros.inc
+Befunge/aturley.bf
+Befunge/beer7.bf
+Befunge/befunge3.bf
+Befunge/cascade.bf
+Befunge/mycorand.bf
+CoffeeScript/build.cake
+Component Pascal/Example.cp
+Cue Sheet/sample1.cue
+Cue Sheet/sample2.cue
+DenizenScript/sample1.dsc
+DenizenScript/sample2.dsc
+GLSL/SimpleLighting.gl2.frag
+GLSL/recurse1.frag
+Genie/Class.gs
+Genie/Hello.gs
+HLSL/corridor.fx
+HLSL/jellyfish.fx
+HLSL/noise.fx
+HTML/rpanel.inc
+HTML/tailDel.inc
+INI/ms.cfg
+KiCad Legacy Layout/tc14badge.brd
+KiCad Schematic/Volume.sch
+KiCad Schematic/buttons.sch
+KiCad Schematic/buzzer.sch
+KiCad Schematic/ciaaConector.sch
+KiCad Schematic/gedda-junk.sch
+KiCad Schematic/ultimate-temp-controller.sch
+Kickstart/fedora-32-live-jam-xfce-pipewire.ks
+Kickstart/mysql.ks
+Kickstart/sample_end.ks
+Limbo/cat.b
+Limbo/lock.b
+Linux Kernel Module/bcm4334x.mod
+Linux Kernel Module/mbcache.mod
+Linux Kernel Module/md5.mod
+Logos/string1.x
+M/arrays.m
+M/fibonacci.m
+M/forloop.m
+M/helloworld.m
+M/ifelse.m
+M/indirectfunctions.m
+M/mileage.m
+M/nesting.m
+MATLAB/Check_plot.m
+MATLAB/matlab_class.m
+MATLAB/normalize.m
+MQL5/Regex.mqh
+Mathematica/Problem12.m
+Moocode/hello.moo
+Moocode/moocode_toolkit.moo
+Moocode/toy.moo
+Motoko/erc20.mo
+Motoko/queue.mo
+NCL/PrnOscPat_driver.ncl
+NCL/WRF_static_2.ncl
+NCL/WRF_track_1.ncl
+NCL/cru_8.ncl
+NCL/gsn_csm_xy2_time_series_inputs.ncl
+NCL/hdf4sds_7.ncl
+NCL/mask_12.ncl
+NCL/mcsst_1.ncl
+NCL/primero.ncl
+NCL/topo_9.ncl
+NCL/traj_3.ncl
+NCL/tsdiagram_1.ncl
+NCL/unique_9.ncl
+NCL/viewport_4.ncl
+NCL/weather_sym_6.ncl
+NCL/xy_29.ncl
+Nasal/damage.nas
+Nasal/kx165tso.nas
+Nginx/example.com.vhost
+Objective-J/AppController.j
+Objective-J/LightsOff.j
+Objective-J/iTunesLayout.j
+OpenEdge ABL/Email.cls
+OpenEdge ABL/SendEmailAlgorithm.cls
+OpenEdge ABL/Util.cls
+Pawn/Check.inc
+Pawn/fixed.inc
+Pawn/fixes.inc
+Pawn/mfile.inc
+Pawn/y_testing.inc
+Protocol Buffer Text Format/ProjectSettings.pbt
+Protocol Buffer Text Format/Tree.pbt
+Puppet/hiera_include.pp
+Puppet/stages-example.pp
+RPM Spec/apache.spec
+RPM Spec/erlang-erlydtl.spec
+RPM Spec/manos.spec
+RouterOS Script/BackupAndUpdate.rsc
+RouterOS Script/config.rsc
+RouterOS Script/console-dump.rsc
+RouterOS Script/vlans.rsc
+Ruby/any.spec
+SQL/AvailableInSearchSel.prc
+SQL/hostcache_set_state.inc
+SQL/videodb.ddl
+Scheme/lambdastar.sls
+Scheme/sboyer.sch
+ShaderLab/DepthOfField.shader
+ShaderLab/Fog.shader
+ShaderLab/Uber.shader
+Terra/arith.t
+Terra/arrayt.t
+Terra/benchmark_nbody.t
+Text/aptitude-defaults.nb
+Text/tutor.nb
+Unix Assembly/gemm_kernel_1x4.S
+Unix Assembly/hello.s
+Unix Assembly/support.S
+XML/Case.workflow
+XML/HITSP_C32.sch
+XML/XmlIO.pluginspec
+XML/battlescribe.gst
+XML/holobloc-sample.res
+XML/namespace-strict.sch
+XML/oasis-table.sch
+XML/some-ideas.mm
+jq/builtin.jq
+jq/sample.jq
