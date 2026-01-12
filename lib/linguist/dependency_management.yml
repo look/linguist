@@ -1,0 +1,42 @@
+# Extracted from https://github.com/github-linguist/linguist/tree/5fe9e5602ec8ac3d6ab1cdeb8762114a7b5544d2
+# Go
+ - ^go\.mod$|^go\.sum$|^Gopkg\.toml$|^Gopkg\.lock$
+
+# Rust
+ - (^|/)Cargo\.toml$|(^|/)Cargo\.lock$
+
+# Mac OS
+ - (^|/)Brewfile$
+
+# JS/TS
+ - (^|\/)(package\.json|package-lock\.json|yarn\.lock|pnpm-lock\.yaml|bower\.json)$
+
+# Python
+ - (^|\/)(requirements\.txt|Pipfile|Pipfile\.lock|pyproject\.toml|setup\.py|setup\.cfg)$
+
+# Java
+ - (^|\/)(pom\.xml|build\.gradle|build\.gradle\.kts|settings\.gradle|settings\.gradle\.kts|ivy\.xml)$
+
+# Ruby
+ - (^|\/)(Gemfile|Gemfile\.lock|gems\.rb|gems\.locked|\.gemspec|\.ruby-version)$
+
+# iOS/Swift
+ - (^|\/)(Podfile|Podfile\.lock|Cartfile|Cartfile\.resolved|Package\.swift)$
+
+# Lua
+ - (^|\/)(rockspec|\.rockspec|wscript|wscript\.lua)$
+
+# PHP
+ - (^|\/)(composer\.json|composer\.lock)$
+
+# C#
+ - .*\.(csproj|sln)$|^packages\.config$|^Directory\.Build\.(props|targets)$
+
+# Kotlin
+ - .*\.(gradle|gradle\.kts|pom)$|^settings\.gradle$|^settings\.gradle\.kts$|^build\.gradle$|^build\.gradle\.kts$
+
+# Bash
+ - (^|\/)((install[_-])?dependencies\.sh|requirements.sh)$
+
+# Terraform
+ - (^|\/)terraform.lock.hcl$

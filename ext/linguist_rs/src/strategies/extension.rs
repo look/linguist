@@ -47,7 +47,8 @@ pub(crate) fn init() {
 
 static GENERIC: LazyLock<HashSet<String>> = LazyLock::new(|| {
     let mut out = HashSet::new();
-    let yml = include_bytes!("../linguist/generic.yml");
+    let yml = include_bytes!("../../../../lib/linguist/generic.yml");
+
     let value: serde_yaml::Value =
         serde_yaml::from_slice(&yml[..]).expect("unable to parse generic.yml!");
     let data = value

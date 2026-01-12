@@ -5,7 +5,7 @@ use std::sync::LazyLock;
 use crate::Language;
 
 static POPULAR_LANGUAGES: LazyLock<HashSet<String>> = LazyLock::new(|| {
-    let file = include_bytes!("linguist/popular.yml");
+    let file = include_bytes!("../../../lib/linguist/popular.yml");
     let value: serde_yaml::Value =
         serde_yaml::from_slice(&file[..]).expect("unable to parse popular.yml!");
     value

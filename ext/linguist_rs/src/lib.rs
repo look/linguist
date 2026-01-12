@@ -211,7 +211,7 @@ static LINGUIST_DATA: LazyLock<LinguistData> = LazyLock::new(|| {
     let mut by_interpreter = HashMap::new();
     let mut by_extension = HashMap::new();
 
-    let yml = include_bytes!("linguist/languages.yml");
+    let yml = include_bytes!("../../../lib/linguist/languages.yml");
     let value: serde_yaml::Value =
         serde_yaml::from_slice(&yml[..]).expect("unable to parse languages.yml!");
     let data = value
@@ -327,7 +327,7 @@ pub enum LanguageType {
 macro_rules! regex_set_from_path {
     ($x:ident, $path:expr) => {
         static $x: ::std::sync::LazyLock<::regex::RegexSet> = ::std::sync::LazyLock::new(|| {
-            let file = include_bytes!(concat!("linguist/", $path));
+            let file = include_bytes!(concat!("../../../lib/linguist/", $path));
             let value: serde_yaml::Value =
                 serde_yaml::from_slice(&file[..]).expect("unabled to parse yml file");
             ::regex::RegexSet::new(
@@ -357,7 +357,7 @@ mod tests {
     use std::vec;
 
     use super::*;
-    use crate::fixtures::{SKIPS_WRONG_LANGUAGE, Sample, samples, samples_dir};
+    use crate::fixtures::{samples, samples_dir, Sample, SKIPS_WRONG_LANGUAGE};
 
     #[test]
     fn language_by_name() {

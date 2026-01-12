@@ -5,7 +5,7 @@ use serde_yaml::Value;
 
 use super::lowercase_ext;
 use crate::regex::Regex;
-use crate::{Answer, Language, get_language_by_name};
+use crate::{get_language_by_name, Answer, Language};
 
 /// Detects the language of a file using content heuristics. Returns the first
 /// matching language or Answer::None.
@@ -137,7 +137,7 @@ static HEURISTICS: LazyLock<ContentHeuristics> = LazyLock::new(|| {
     let mut rules = Vec::new();
     let mut rules_by_extension = HashMap::new();
 
-    let yml = include_bytes!("../linguist/heuristics.yml");
+    let yml = include_bytes!("../../../../lib/linguist/heuristics.yml");
     let value: serde_yaml::Value =
         serde_yaml::from_slice(&yml[..]).expect("unable to parse heuristics.yml!");
     let data = value

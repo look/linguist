@@ -1,0 +1,9 @@
+## File contained in a folder with a testy name
+ - (?i)(^|[^a-z]|/)tests?([^a-z]|/)
+ - (?i)(^|[^a-z]|/)snapshots([^a-z]|/)
+
+# Test snapshot file extensions (though arguably, these are generated and
+# shouldn't be indexed?)
+ - \.snap\.js$
+ - \.snap$
+ - \.ambr$

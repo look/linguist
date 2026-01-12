@@ -6,7 +6,7 @@ use std::path::Path;
 fn generate_languages_file(f: File) -> io::Result<()> {
     let mut f = BufWriter::new(f);
 
-    let file = include_bytes!("src/linguist/languages.yml");
+    let file = include_bytes!("../../lib/linguist/languages.yml");
     let value: serde_yaml::Value =
         serde_yaml::from_slice(&file[..]).expect("unable to parse languages.yml");
 
