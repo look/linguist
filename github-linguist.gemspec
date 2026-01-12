@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir['{lib,ext}/**/*', 'grammars/*', 'LICENSE'] - Dir['lib/linguist/linguist.{so,bundle}']
   s.platform = Gem::Platform::RUBY
   s.executables = ['github-linguist', 'git-linguist']
-  s.extensions = ['ext/linguist/extconf.rb']
+  s.extensions = ['ext/linguist/extconf.rb', 'ext/linguist_rs/extconf.rb']
   s.require_paths = ['lib', 'ext']
 
   s.add_dependency 'cgi',             '>= 0'
@@ -34,4 +34,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'licensed', '~> 5.0'
   s.add_development_dependency 'licensee', '~> 9.15'
   s.add_development_dependency 'bundler', '~> 2.0'
+  s.add_development_dependency 'rb_sys', '~> 0.9'
 end
