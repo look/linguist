@@ -1,4 +1,4 @@
 require "mkmf"
 require "rb_sys/mkmf"
 
-create_rust_makefile("linguist/linguist_rs")
+create_rust_makefile("linguist/linguist")

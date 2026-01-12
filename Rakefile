@@ -7,6 +7,7 @@ require 'yajl'
 require 'open-uri'
 require 'json'
 require 'open3'
+require 'rb_sys/extensiontask'
 
 task :default => :test
 
@@ -15,6 +16,10 @@ Rake::TestTask.new
 gem_spec = Gem::Specification.load('github-linguist.gemspec')
 
 Rake::ExtensionTask.new('linguist', gem_spec) do |ext|
+  ext.lib_dir = File.join('lib', 'linguist')
+end
+
+RbSys::ExtensionTask.new('linguist', gem_spec) do |ext|
   ext.lib_dir = File.join('lib', 'linguist')
 end
 

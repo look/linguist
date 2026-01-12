@@ -15,6 +15,7 @@ pub mod generated;
 pub mod indexable;
 pub mod popular;
 pub mod regex;
+pub mod ruby;
 mod strategies;
 pub mod vendored;
 

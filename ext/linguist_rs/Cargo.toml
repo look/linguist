@@ -5,13 +5,14 @@ authors = ["The blackbird team <support@github.com>"]
 edition = "2024"
 
 [lib]
-crate-type = ["lib", "staticlib"]
+crate-type = ["cdylib"] # maybe add back "lib", "staticlib"?
 
 [features]
 c-bindings = ["cbindgen"]
 test-support = []
 
 [dependencies]
+magnus = "0.8"
 metrics = "0.24"
 regex = "1"
 serde_yaml = "0.9"
