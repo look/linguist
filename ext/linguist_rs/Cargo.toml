@@ -12,11 +12,11 @@ c-bindings = ["cbindgen"]
 test-support = []
 
 [dependencies]
-metrics = { workspace = true }
-regex = { workspace = true }
+metrics = "0.24"
+regex = "1"
 serde_yaml = "0.9"
-simdutf8 = { workspace = true }
-thiserror = { workspace = true }
+simdutf8 = "0.1"
+thiserror = "2"
 
 [dev-dependencies]
 criterion = "0.8"
