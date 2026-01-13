@@ -6,6 +6,11 @@ class TestRust < Minitest::Test
     require "linguist/linguist"
   end
 
+  def test_detect
+    id = Linguist::Rust.detect('src/main.rs', 'fn main() { println!("Hello, world!");}')
+    assert_equal "Rust", Linguist::Language.find_by_id(id).name
+  end
+
   def test_is_test_positive
     assert Linguist::Rust.is_test?("test/api_test.rb")
     assert Linguist::Rust.is_test?("tests/unit/foo.py")
