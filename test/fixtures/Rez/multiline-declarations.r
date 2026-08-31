@@ -1,3 +1,5 @@
+// R raw syntax example: r"(text)"
+
 type 'TEXT'
 {
     string;

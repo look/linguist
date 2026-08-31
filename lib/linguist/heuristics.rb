@@ -4,7 +4,6 @@ module Linguist
   # A collection of simple heuristics that can be used to better analyze languages.
   class Heuristics
     HEURISTICS_CONSIDER_BYTES = 50 * 1024
-    UTF8_BOM = [0xEF, 0xBB, 0xBF].freeze
 
     # Public: Use heuristics to detect language of the blob.
     #
@@ -22,13 +21,11 @@ module Linguist
       return [] if blob.symlink?
       self.load()
 
-      full_data = blob.data
-      truncated = full_data.length > HEURISTICS_CONSIDER_BYTES
-      data = full_data[0...HEURISTICS_CONSIDER_BYTES]
+      data = blob.data[0...HEURISTICS_CONSIDER_BYTES]
 
       @heuristics.each do |heuristic|
         if heuristic.matches?(blob.name, candidates)
-          return Array(heuristic.call(data, truncated))
+          return Array(heuristic.call(data))
         end
       end
 
@@ -127,15 +124,9 @@ module Linguist
     end
 
     # Internal: Perform the heuristic
-    def call(data, truncated = false)
+    def call(data)
       matched = @rules.find do |rule|
-        next false if truncated && rule['requires_full_content']
-
-        rule_data = data
-        if rule['allow_utf8_bom'] && data.byteslice(0, 3)&.bytes == UTF8_BOM
-          rule_data = data.byteslice(3, data.bytesize - 3)
-        end
-        rule['pattern'].match?(rule_data)
+        rule['pattern'].match?(data)
       end
       if !matched.nil?
         languages = matched['language']

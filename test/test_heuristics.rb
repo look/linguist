@@ -1,5 +1,4 @@
 require_relative "./helper"
-require "tempfile"
 
 class TestHeuristics < Minitest::Test
   include Linguist
@@ -24,15 +23,6 @@ class TestHeuristics < Minitest::Test
     fixs = fixs.reject { |f| File.symlink?(f) }
     assert !fixs.empty?, "no fixtures for #{language_name} #{file}"
     fixs
-  end
-
-  def assert_detects_content(language, content)
-    Tempfile.create(["heuristic", ".r"]) do |file|
-      file.binmode
-      file.write(content)
-      file.flush
-      assert_equal Language[language], Linguist.detect(FileBlob.new(file.path))
-    end
   end
 
   def test_no_match
@@ -993,10 +983,13 @@ class TestHeuristics < Minitest::Test
     rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
     assert_equal ["Rebol", "R", "Rez", "Rez", "R"], rules.map { |rule| rule["language"] }
     rez_rules = rules.select { |rule| rule["language"] == "Rez" }
+    raw_assignment_pattern = Regexp.new(rules[1]["pattern"])
     declaration_pattern = Regexp.new(rez_rules.first["pattern"])
     include_pattern = Regexp.new(rez_rules.last["pattern"])
-    assert rez_rules.last["requires_full_content"]
-    assert rez_rules.last["allow_utf8_bom"]
+
+    assert_match raw_assignment_pattern, "raw <- r\"(\nresource 'ABCD' {\n)\""
+    assert_match raw_assignment_pattern, "raw = R\"---[\ntype 'TEXT' {\n]---\""
+    refute_match raw_assignment_pattern, "// R raw syntax example: r\"(text)\""
 
     assert_match declaration_pattern, "resource 'ABCD' {\r\n"
     assert_match declaration_pattern, "header\r\n\tdata 'AB12' (128, purgeable) {\r\n"
@@ -1014,14 +1007,12 @@ class TestHeuristics < Minitest::Test
     refute_match declaration_pattern, "resource 'ABCDE' {"
     refute_match declaration_pattern, "resource 'AB\nD' {"
 
-    assert_match include_pattern, "#include <Carbon/Carbon.r>\r\n"
+    assert_match include_pattern, "#include <Carbon/Carbon.r>\r\nx = 1"
     assert_match include_pattern, " # include \"Types.r\"\n"
-    assert_match include_pattern, "\n#include <Types.r>\n\n #include <Carbon/Carbon.r>\n\n"
+    assert_match include_pattern, "\uFEFF\r\n\t\r\n #include <Types.r>\r\n\r\n"
 
     refute_match include_pattern, "x <- \"#include <Types.r>\""
-    refute_match include_pattern, "#include <Types.r>\nx <- 1"
-    refute_match include_pattern, "#include <Types.r>\nx = 1"
-    refute_match include_pattern, "#include <Types.r>\n# not whitespace"
+    refute_match include_pattern, "# ordinary R comment"
 
     blob_class = Struct.new(:name, :data) do
       def symlink?
@@ -1037,19 +1028,6 @@ class TestHeuristics < Minitest::Test
     assert_equal [Language["Rez"]], Heuristics.call(inside, candidates)
     assert_empty Heuristics.call(outside, candidates)
 
-    bom_include = blob_class.new(
-      "bom-include.r",
-      "\uFEFF\r\n\t\r\n #include <Types.r>\r\n\r\n"
-    )
-    assert_equal [Language["Rez"]], Heuristics.call(bom_include, candidates)
-    assert_detects_content("Rez", bom_include.data)
-
-    include_line = "# include <Types.r>\n"
-    assert_equal 20, include_line.bytesize
-    exact_cutoff_r = (include_line * 2_560) + "x <- 1\n"
-    exact_cutoff_r = blob_class.new("exact-cutoff.r", exact_cutoff_r)
-    assert_equal [Language["R"]], Heuristics.call(exact_cutoff_r, candidates)
-    assert_detects_content("R", exact_cutoff_r.data)
   end
 
   def test_re_by_heuristics
