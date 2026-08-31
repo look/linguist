@@ -1056,22 +1056,29 @@ disambiguations:
     pattern: |-
       (?x)\A
       \[
-      (?<version>
+      (?:
+        [Aa]d[Bb]lock
+        (?:[\x20\t][Pp]lus)?
+        |
+        u[Bb]lock
+        (?:[\x20\t][Oo]rigin)?
+        |
+        [Aa]d[Gg]uard
+      )
+      (?:[\x20\t] \d+(?:\.\d+)*)?
+      (?:
+        [\x20\t]?;[\x20\t]?
         (?:
           [Aa]d[Bb]lock
-          (?:[ \t][Pp]lus)?
+          (?:[\x20\t][Pp]lus)?
           |
           u[Bb]lock
-          (?:[ \t][Oo]rigin)?
+          (?:[\x20\t][Oo]rigin)?
           |
           [Aa]d[Gg]uard
         )
-        (?:[ \t] \d+(?:\.\d+)*+)?
-      )
-      (?:
-        [ \t]?;[ \t]?
-        \g<version>
-      )*+
+        (?:[\x20\t] \d+(?:\.\d+)*)?
+      )*
       \]
     # HACK: This is a contrived use of heuristics needed to address
     # an unusual edge-case. See https://git.io/JULye for discussion.
