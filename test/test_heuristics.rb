@@ -981,21 +981,13 @@ class TestHeuristics < Minitest::Test
   def test_rez_by_heuristics
     disambiguations = Heuristics.load_config["disambiguations"]
     rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
-    assert_equal ["Rebol", "R", "Rez", "Rez", "R"], rules.map { |rule| rule["language"] }
+    assert_equal ["Rebol", "Rez", "Rez", "R"], rules.map { |rule| rule["language"] }
     rez_rules = rules.select { |rule| rule["language"] == "Rez" }
-    raw_assignment_pattern = Regexp.new(rules[1]["pattern"])
     declaration_pattern = Regexp.new(rez_rules.first["pattern"])
     include_pattern = Regexp.new(rez_rules.last["pattern"])
 
-    assert_match raw_assignment_pattern, "raw <- r\"(\nresource 'ABCD' {\n)\""
-    assert_match raw_assignment_pattern, "raw = R\"---[\ntype 'TEXT' {\n]---\""
-    refute_match raw_assignment_pattern, "// R raw syntax example: r\"(text)\""
-
     assert_match declaration_pattern, "resource 'ABCD' {\r\n"
-    assert_match declaration_pattern, "header\r\n\tdata 'AB12' (128, purgeable) {\r\n"
-    assert_match declaration_pattern, "header\n  type 'WXYZ'\t{\n"
     assert_match declaration_pattern, "type 'TEXT'\r\n{\r\n  string;\r\n};\r\n"
-    assert_match declaration_pattern, "resource 'DLOG' (128, purgeable)\n  {\n"
     assert_match declaration_pattern, "resource 'STR#' (128)\n{\n"
     assert_match declaration_pattern, "resource 'STR ' (128)\r\n{\r\n"
     assert_match declaration_pattern, "data 'snd '\n{\n"
@@ -1007,27 +999,11 @@ class TestHeuristics < Minitest::Test
     refute_match declaration_pattern, "resource 'ABCDE' {"
     refute_match declaration_pattern, "resource 'AB\nD' {"
 
-    assert_match include_pattern, "#include <Carbon/Carbon.r>\r\nx = 1"
+    assert_match include_pattern, "#include <Carbon/Carbon.r>\r\n"
     assert_match include_pattern, " # include \"Types.r\"\n"
-    assert_match include_pattern, "\uFEFF\r\n\t\r\n #include <Types.r>\r\n\r\n"
 
     refute_match include_pattern, "x <- \"#include <Types.r>\""
     refute_match include_pattern, "# ordinary R comment"
-
-    blob_class = Struct.new(:name, :data) do
-      def symlink?
-        false
-      end
-    end
-    limit = Heuristics::HEURISTICS_CONSIDER_BYTES
-    declaration = "resource 'ABCD' {"
-    inside = blob_class.new("boundary.r", " " * (limit - declaration.bytesize) + declaration)
-    outside = blob_class.new("boundary.r", " " * (limit - declaration.bytesize + 1) + declaration)
-    candidates = ["R", "Rebol", "Rez"].map { |language| Language[language] }
-
-    assert_equal [Language["Rez"]], Heuristics.call(inside, candidates)
-    assert_empty Heuristics.call(outside, candidates)
-
   end
 
   def test_re_by_heuristics

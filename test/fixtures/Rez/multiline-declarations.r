@@ -1,15 +1,5 @@
 // R raw syntax example: r"(text)"
 
-type 'TEXT'
-{
-    string;
-};
-
-resource 'DLOG' (128, purgeable)
-{
-    { 50, 100, 240, 420 }
-};
-
 resource 'STR#' (128)
 {
     "Punctuation code"

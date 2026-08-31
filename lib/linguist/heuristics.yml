@@ -799,9 +799,6 @@ disambiguations:
   rules:
   - language: Rebol
     pattern: '(?i:\bRebol\b)'
-  # Match simple R raw-string assignments before declaration-shaped raw content.
-  - language: R
-    pattern: '(?:\A|[\r\n])[ \t]*[A-Za-z.][A-Za-z0-9._]*[ \t]*(?:<-|=)[ \t]*[rR]"-*[\(\[\{]'
   - language: Rez
     pattern: '(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[^''\r\n]{4}''[ \t]*(?:\([^\r\n]*\)[ \t]*)?(?:(?:\r\n?|\n)[ \t]*)?\{'
   - language: Rez
