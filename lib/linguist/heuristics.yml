@@ -799,8 +799,12 @@ disambiguations:
   rules:
   - language: Rebol
     pattern: '(?i:\bRebol\b)'
+  # R raw strings can contain declaration-shaped lines.
+  - language: R
+    pattern: '\b[rR]"-*[\(\[\{]'
+  # The include alternative is restricted to include-only forwarding files.
   - language: Rez
-    pattern: '(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[A-Za-z0-9]{4}''[ \t]*(?:\([^\r\n]*\)[ \t]*)?\{'
+    pattern: '(?:(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[A-Za-z0-9]{4}''[ \t]*(?:\([^\r\n]*\)[ \t]*)?(?:(?:\r\n?|\n)[ \t]*)?\{)|(?:\A(?:[ \t]*#[ \t]*include[ \t]+["<](?:Types\.r|Carbon/Carbon\.r)[">][ \t]*(?:\r\n?|\n|\z))+\z)'
   - language: R
     pattern: '<-|^\s*#'
 - extensions: ['.re']

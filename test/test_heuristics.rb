@@ -981,16 +981,21 @@ class TestHeuristics < Minitest::Test
   def test_rez_by_heuristics
     disambiguations = Heuristics.load_config["disambiguations"]
     rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
-    assert_equal ["Rebol", "Rez", "R"], rules.map { |rule| rule["language"] }
+    assert_equal ["Rebol", "R", "Rez", "R"], rules.map { |rule| rule["language"] }
     pattern = Regexp.new(rules.find { |rule| rule["language"] == "Rez" }["pattern"])
 
     assert_match pattern, "resource 'ABCD' {\r\n"
     assert_match pattern, "header\r\n\tdata 'AB12' (128, purgeable) {\r\n"
     assert_match pattern, "header\n  type 'WXYZ'\t{\n"
+    assert_match pattern, "type 'TEXT'\r\n{\r\n  string;\r\n};\r\n"
+    assert_match pattern, "resource 'DLOG' (128, purgeable)\n  {\n"
+    assert_match pattern, "#include <Carbon/Carbon.r>\r\n"
+    assert_match pattern, " # include \"Types.r\"\n"
 
     refute_match pattern, "x <- \"resource 'ABCD' {\""
     refute_match pattern, "x <- \"#include <Types.r>\""
-    refute_match pattern, "  #include <Types.r>"
+    refute_match pattern, "#include <Types.r>\nx <- 1"
+    refute_match pattern, "#include <Types.r>\nx = 1"
     refute_match pattern, "  # resource 'ABCD' {"
     refute_match pattern, "  // resource 'ABCD' {"
     refute_match pattern, "  \"resource 'ABCD' {\""
@@ -1009,6 +1014,10 @@ class TestHeuristics < Minitest::Test
 
     assert_equal [Language["Rez"]], Heuristics.call(inside, candidates)
     assert_empty Heuristics.call(outside, candidates)
+
+    large_r = "#include <Types.r>\n" + ("# ordinary R comment\n" * 3_000) + "x <- 1"
+    large_r = blob_class.new("large.r", large_r)
+    assert_equal [Language["R"]], Heuristics.call(large_r, candidates)
   end
 
   def test_re_by_heuristics
