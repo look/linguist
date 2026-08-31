@@ -994,6 +994,7 @@ class TestHeuristics < Minitest::Test
     assert_match declaration_pattern, "resource 'ABCD'\n(128)\n{\n"
     assert_match declaration_pattern, "resource 'ABCD'\r\n(128)\r\n\r\n{\r\n"
     assert_match declaration_pattern, "type 'TEXT'\n\n{\n"
+    assert_match declaration_pattern, "header\rresource 'ABCD'\r(128)\r\r{\r"
 
     refute_match declaration_pattern, "x <- \"resource 'ABCD' {\""
     refute_match declaration_pattern, "  # resource 'ABCD' {"
@@ -1004,9 +1005,22 @@ class TestHeuristics < Minitest::Test
 
     assert_match include_pattern, "#include <Carbon/Carbon.r>\r\n"
     assert_match include_pattern, " # include \"Types.r\"\n"
+    assert_match include_pattern, "header\r #include <Types.r>\r"
 
     refute_match include_pattern, "x <- \"#include <Types.r>\""
     refute_match include_pattern, "# ordinary R comment"
+
+    blob_class = Struct.new(:name, :data) do
+      def symlink?
+        false
+      end
+    end
+    candidates = ["R", "Rebol", "Rez"].map { |language| Language[language] }
+    all_fixtures("Rez", "*.r").each do |path|
+      cr_only = File.binread(path).gsub(/\r\n?|\n/, "\r")
+      blob = blob_class.new(File.basename(path), cr_only)
+      assert_equal [Language["Rez"]], Heuristics.call(blob, candidates), "Failed for #{path} with CR-only lines"
+    end
   end
 
   def test_re_by_heuristics
