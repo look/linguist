@@ -978,7 +978,7 @@ class TestHeuristics < Minitest::Test
     })
   end
 
-  def test_rez_by_heuristics
+  def test_r_rez_patterns
     disambiguations = Heuristics.load_config["disambiguations"]
     rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
     assert_equal ["Rebol", "Rez", "Rez", "R"], rules.map { |rule| rule["language"] }
@@ -991,6 +991,9 @@ class TestHeuristics < Minitest::Test
     assert_match declaration_pattern, "resource 'STR#' (128)\n{\n"
     assert_match declaration_pattern, "resource 'STR ' (128)\r\n{\r\n"
     assert_match declaration_pattern, "data 'snd '\n{\n"
+    assert_match declaration_pattern, "resource 'ABCD'\n(128)\n{\n"
+    assert_match declaration_pattern, "resource 'ABCD'\r\n(128)\r\n\r\n{\r\n"
+    assert_match declaration_pattern, "type 'TEXT'\n\n{\n"
 
     refute_match declaration_pattern, "x <- \"resource 'ABCD' {\""
     refute_match declaration_pattern, "  # resource 'ABCD' {"

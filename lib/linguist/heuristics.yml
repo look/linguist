@@ -800,7 +800,7 @@ disambiguations:
   - language: Rebol
     pattern: '(?i:\bRebol\b)'
   - language: Rez
-    pattern: '(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[^''\r\n]{4}''[ \t]*(?:\([^\r\n]*\)[ \t]*)?(?:(?:\r\n?|\n)[ \t]*)?\{'
+    pattern: '(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[^''\r\n]{4}''[ \t]*(?:(?:\r\n?|\n)[ \t]*)*(?:\([^\r\n]*\)[ \t]*(?:(?:\r\n?|\n)[ \t]*)*)?\{'
   - language: Rez
     pattern: '(?:\A|[\r\n])[ \t]*#[ \t]*include[ \t]+["<](?:Types\.r|Carbon/Carbon\.r)[">]'
   - language: R
