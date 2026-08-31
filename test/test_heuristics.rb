@@ -973,7 +973,8 @@ class TestHeuristics < Minitest::Test
   def test_r_by_heuristics
     assert_heuristics({
       "R" => all_fixtures("R", "*.r") + all_fixtures("R", "*.R"),
-      "Rebol" => all_fixtures("Rebol", "*.r")
+      "Rebol" => all_fixtures("Rebol", "*.r"),
+      "Rez" => all_fixtures("Rez", "*.r")
     })
   end
 
