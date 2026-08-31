@@ -711,7 +711,7 @@ disambiguations:
 - extensions: ['.pkl']
   rules:
     - language: Pkl
-      pattern: '\A\s*(?:(?://[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)\s*)*(?:(?:module|import|amends|extends|local|const|fixed|abstract|open|class|typealias|@\w+)\b|[a-zA-Z0-9_$]+\s*(?:=|\{|:)|`[^`]+`\s*(?:=|\{|:)|(?:for|when)\s*\()'
+      pattern: '\A\s*(?:(?://[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)\s*)*(?:(?:(?:abstract|open)\s+)*module\b|(?:import|amends|extends)\b|@(?:[A-Za-z_$]|[^[:ascii:]])(?:[A-Za-z0-9_$]|[^[:ascii:]])*|(?:(?:abstract|open|local|external)\s+)*class\b|(?:(?:local|external)\s+)*typealias\b|(?:(?:abstract|local|external|const)\s+)*function\s+(?:(?:[A-Za-z_$]|[^[:ascii:]])(?:[A-Za-z0-9_$]|[^[:ascii:]])*|`[^`]+`)\s*\(|(?:(?:abstract|local|hidden|external|fixed|const)\s+)*(?:(?:[A-Za-z_$]|[^[:ascii:]])(?:[A-Za-z0-9_$]|[^[:ascii:]])*|`[^`]+`)\s*(?:=|\{|:))'
     - language: Pickle
 - extensions: ['.pl']
   rules:
