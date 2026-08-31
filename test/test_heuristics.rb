@@ -978,6 +978,39 @@ class TestHeuristics < Minitest::Test
     })
   end
 
+  def test_rez_by_heuristics
+    disambiguations = Heuristics.load_config["disambiguations"]
+    rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
+    assert_equal ["Rebol", "Rez", "R"], rules.map { |rule| rule["language"] }
+    pattern = Regexp.new(rules.find { |rule| rule["language"] == "Rez" }["pattern"])
+
+    assert_match pattern, "resource 'ABCD' {\r\n"
+    assert_match pattern, "header\r\n\tdata 'AB12' (128, purgeable) {\r\n"
+    assert_match pattern, "header\n  type 'WXYZ'\t{\n"
+
+    refute_match pattern, "x <- \"resource 'ABCD' {\""
+    refute_match pattern, "x <- \"#include <Types.r>\""
+    refute_match pattern, "  #include <Types.r>"
+    refute_match pattern, "  # resource 'ABCD' {"
+    refute_match pattern, "  // resource 'ABCD' {"
+    refute_match pattern, "  \"resource 'ABCD' {\""
+    refute_match pattern, "resource 'ABCDE' {"
+
+    blob_class = Struct.new(:name, :data) do
+      def symlink?
+        false
+      end
+    end
+    limit = Heuristics::HEURISTICS_CONSIDER_BYTES
+    declaration = "resource 'ABCD' {"
+    inside = blob_class.new("boundary.r", " " * (limit - declaration.bytesize) + declaration)
+    outside = blob_class.new("boundary.r", " " * (limit - declaration.bytesize + 1) + declaration)
+    candidates = ["R", "Rebol", "Rez"].map { |language| Language[language] }
+
+    assert_equal [Language["Rez"]], Heuristics.call(inside, candidates)
+    assert_empty Heuristics.call(outside, candidates)
+  end
+
   def test_re_by_heuristics
     assert_heuristics({
       "C++" => all_fixtures("C++", "*.re"),
