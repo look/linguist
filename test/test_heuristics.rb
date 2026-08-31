@@ -1,4 +1,5 @@
 require_relative "./helper"
+require "tempfile"
 
 class TestHeuristics < Minitest::Test
   include Linguist
@@ -23,6 +24,15 @@ class TestHeuristics < Minitest::Test
     fixs = fixs.reject { |f| File.symlink?(f) }
     assert !fixs.empty?, "no fixtures for #{language_name} #{file}"
     fixs
+  end
+
+  def assert_detects_content(language, content)
+    Tempfile.create(["heuristic", ".r"]) do |file|
+      file.binmode
+      file.write(content)
+      file.flush
+      assert_equal Language[language], Linguist.detect(FileBlob.new(file.path))
+    end
   end
 
   def test_no_match
@@ -981,25 +991,37 @@ class TestHeuristics < Minitest::Test
   def test_rez_by_heuristics
     disambiguations = Heuristics.load_config["disambiguations"]
     rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
-    assert_equal ["Rebol", "R", "Rez", "R"], rules.map { |rule| rule["language"] }
-    pattern = Regexp.new(rules.find { |rule| rule["language"] == "Rez" }["pattern"])
+    assert_equal ["Rebol", "R", "Rez", "Rez", "R"], rules.map { |rule| rule["language"] }
+    rez_rules = rules.select { |rule| rule["language"] == "Rez" }
+    declaration_pattern = Regexp.new(rez_rules.first["pattern"])
+    include_pattern = Regexp.new(rez_rules.last["pattern"])
+    assert rez_rules.last["requires_full_content"]
+    assert rez_rules.last["allow_utf8_bom"]
 
-    assert_match pattern, "resource 'ABCD' {\r\n"
-    assert_match pattern, "header\r\n\tdata 'AB12' (128, purgeable) {\r\n"
-    assert_match pattern, "header\n  type 'WXYZ'\t{\n"
-    assert_match pattern, "type 'TEXT'\r\n{\r\n  string;\r\n};\r\n"
-    assert_match pattern, "resource 'DLOG' (128, purgeable)\n  {\n"
-    assert_match pattern, "#include <Carbon/Carbon.r>\r\n"
-    assert_match pattern, " # include \"Types.r\"\n"
+    assert_match declaration_pattern, "resource 'ABCD' {\r\n"
+    assert_match declaration_pattern, "header\r\n\tdata 'AB12' (128, purgeable) {\r\n"
+    assert_match declaration_pattern, "header\n  type 'WXYZ'\t{\n"
+    assert_match declaration_pattern, "type 'TEXT'\r\n{\r\n  string;\r\n};\r\n"
+    assert_match declaration_pattern, "resource 'DLOG' (128, purgeable)\n  {\n"
+    assert_match declaration_pattern, "resource 'STR#' (128)\n{\n"
+    assert_match declaration_pattern, "resource 'STR ' (128)\r\n{\r\n"
+    assert_match declaration_pattern, "data 'snd '\n{\n"
 
-    refute_match pattern, "x <- \"resource 'ABCD' {\""
-    refute_match pattern, "x <- \"#include <Types.r>\""
-    refute_match pattern, "#include <Types.r>\nx <- 1"
-    refute_match pattern, "#include <Types.r>\nx = 1"
-    refute_match pattern, "  # resource 'ABCD' {"
-    refute_match pattern, "  // resource 'ABCD' {"
-    refute_match pattern, "  \"resource 'ABCD' {\""
-    refute_match pattern, "resource 'ABCDE' {"
+    refute_match declaration_pattern, "x <- \"resource 'ABCD' {\""
+    refute_match declaration_pattern, "  # resource 'ABCD' {"
+    refute_match declaration_pattern, "  // resource 'ABCD' {"
+    refute_match declaration_pattern, "  \"resource 'ABCD' {\""
+    refute_match declaration_pattern, "resource 'ABCDE' {"
+    refute_match declaration_pattern, "resource 'AB\nD' {"
+
+    assert_match include_pattern, "#include <Carbon/Carbon.r>\r\n"
+    assert_match include_pattern, " # include \"Types.r\"\n"
+    assert_match include_pattern, "\n#include <Types.r>\n\n #include <Carbon/Carbon.r>\n\n"
+
+    refute_match include_pattern, "x <- \"#include <Types.r>\""
+    refute_match include_pattern, "#include <Types.r>\nx <- 1"
+    refute_match include_pattern, "#include <Types.r>\nx = 1"
+    refute_match include_pattern, "#include <Types.r>\n# not whitespace"
 
     blob_class = Struct.new(:name, :data) do
       def symlink?
@@ -1015,9 +1037,19 @@ class TestHeuristics < Minitest::Test
     assert_equal [Language["Rez"]], Heuristics.call(inside, candidates)
     assert_empty Heuristics.call(outside, candidates)
 
-    large_r = "#include <Types.r>\n" + ("# ordinary R comment\n" * 3_000) + "x <- 1"
-    large_r = blob_class.new("large.r", large_r)
-    assert_equal [Language["R"]], Heuristics.call(large_r, candidates)
+    bom_include = blob_class.new(
+      "bom-include.r",
+      "\uFEFF\r\n\t\r\n #include <Types.r>\r\n\r\n"
+    )
+    assert_equal [Language["Rez"]], Heuristics.call(bom_include, candidates)
+    assert_detects_content("Rez", bom_include.data)
+
+    include_line = "# include <Types.r>\n"
+    assert_equal 20, include_line.bytesize
+    exact_cutoff_r = (include_line * 2_560) + "x <- 1\n"
+    exact_cutoff_r = blob_class.new("exact-cutoff.r", exact_cutoff_r)
+    assert_equal [Language["R"]], Heuristics.call(exact_cutoff_r, candidates)
+    assert_detects_content("R", exact_cutoff_r.data)
   end
 
   def test_re_by_heuristics

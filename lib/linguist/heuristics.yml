@@ -16,6 +16,10 @@
 #                       Pattern can be a string with a single regular expression
 #                       or an array of strings that will be merged in a single
 #                       regular expression (with union).
+# requires_full_content
+#                     - only evaluate the rule if the entire file is within the
+#                       heuristic content limit.
+# allow_utf8_bom      - remove a leading UTF-8 byte order mark before matching.
 # and                 - An and block merges multiple rules and checks that all of
 #                       them must match.
 # negative_pattern    - Same as pattern, but checks for absence of matches.
@@ -802,9 +806,13 @@ disambiguations:
   # R raw strings can contain declaration-shaped lines.
   - language: R
     pattern: '\b[rR]"-*[\(\[\{]'
-  # The include alternative is restricted to include-only forwarding files.
   - language: Rez
-    pattern: '(?:(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[A-Za-z0-9]{4}''[ \t]*(?:\([^\r\n]*\)[ \t]*)?(?:(?:\r\n?|\n)[ \t]*)?\{)|(?:\A(?:[ \t]*#[ \t]*include[ \t]+["<](?:Types\.r|Carbon/Carbon\.r)[">][ \t]*(?:\r\n?|\n|\z))+\z)'
+    pattern: '(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[^''\r\n]{4}''[ \t]*(?:\([^\r\n]*\)[ \t]*)?(?:(?:\r\n?|\n)[ \t]*)?\{'
+  # This EOF-dependent rule is restricted to complete include-only files.
+  - language: Rez
+    requires_full_content: true
+    allow_utf8_bom: true
+    pattern: '\A[\r\n\t ]*(?:#[ \t]*include[ \t]+["<](?:Types\.r|Carbon/Carbon\.r)[">][\r\n\t ]*)+\z'
   - language: R
     pattern: '<-|^\s*#'
 - extensions: ['.re']
