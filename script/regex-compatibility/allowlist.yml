@@ -1,0 +1,36 @@
+---
+# yamllint disable rule:line-length
+version: 1
+# Each exception is bound to its engine, location, and exact pattern bytes.
+# Changing, moving, or fixing a pattern makes its entry stale.
+exceptions:
+  - engine: go
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.tpl]/rules[language=Smarty]/pattern"
+    digest: 966193f40b5cdb67ec753ff5675e6e4bd39d452681ca12aa2a4cd8a9ace9ff36
+  - engine: go
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Vim Help File]/pattern"
+    digest: e065ca943f75b0c17996fa5ebdcbf7e14b095910f1b3fc459f5c1b463838b6c8
+  - engine: go
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Hosts File]/pattern"
+    digest: cc094871efc9d2462c256e097bb2319710c032ef680e5af2d16431f1cee5d988
+  - engine: go
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Adblock Filter List]/pattern"
+    digest: b8b76168e43899473f8905a6252ee44c348547d14330dbd240170e8191103772
+  - engine: rust
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.pkl]/rules[language=Pkl]/pattern[1]"
+    digest: 5d3f7338e7ac33f6dec63e11776377e9809d512532901cb45d899add4e1aa811
+  - engine: rust
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.r]/rules[language=Rez]/pattern"
+    digest: eb69fdcaa49d8065cb9d17a7f697a31206b54326533cf3c8eec69739b7d96d0c
+  - engine: rust
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.tpl]/rules[language=Smarty]/pattern"
+    digest: 966193f40b5cdb67ec753ff5675e6e4bd39d452681ca12aa2a4cd8a9ace9ff36
+  - engine: rust
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Vim Help File]/pattern"
+    digest: e065ca943f75b0c17996fa5ebdcbf7e14b095910f1b3fc459f5c1b463838b6c8
+  - engine: rust
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Hosts File]/pattern"
+    digest: cc094871efc9d2462c256e097bb2319710c032ef680e5af2d16431f1cee5d988
+  - engine: rust
+    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Adblock Filter List]/pattern"
+    digest: b8b76168e43899473f8905a6252ee44c348547d14330dbd240170e8191103772
