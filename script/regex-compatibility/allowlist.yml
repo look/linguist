@@ -14,9 +14,6 @@ exceptions:
     location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Adblock Filter List]/pattern"
     digest: a30cf16d97649a1062db9077ababe0cab16728156527723865feba997df033ff
   - engine: go
-    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.tpl]/rules[language=Smarty]/pattern"
-    digest: 966193f40b5cdb67ec753ff5675e6e4bd39d452681ca12aa2a4cd8a9ace9ff36
-  - engine: go
     location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Vim Help File]/pattern"
     digest: e065ca943f75b0c17996fa5ebdcbf7e14b095910f1b3fc459f5c1b463838b6c8
   - engine: go
@@ -31,9 +28,6 @@ exceptions:
   - engine: rust
     location: "lib/linguist/heuristics.yml/disambiguations[extensions=.r]/rules[language=Rez]/pattern"
     digest: eb69fdcaa49d8065cb9d17a7f697a31206b54326533cf3c8eec69739b7d96d0c
-  - engine: rust
-    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.tpl]/rules[language=Smarty]/pattern"
-    digest: 966193f40b5cdb67ec753ff5675e6e4bd39d452681ca12aa2a4cd8a9ace9ff36
   - engine: rust
     location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Vim Help File]/pattern"
     digest: e065ca943f75b0c17996fa5ebdcbf7e14b095910f1b3fc459f5c1b463838b6c8
