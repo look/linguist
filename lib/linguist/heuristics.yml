@@ -16,6 +16,8 @@
 #                       Pattern can be a string with a single regular expression
 #                       or an array of strings that will be merged in a single
 #                       regular expression (with union).
+#                       Run `script/check-regex-compatibility
+#                       lib/linguist/heuristics.yml` after changing patterns.
 # and                 - An and block merges multiple rules and checks that all of
 #                       them must match.
 # negative_pattern    - Same as pattern, but checks for absence of matches.
@@ -997,7 +999,7 @@ disambiguations:
   - language: Go Template
     pattern: '\{\{-?\s*(\`?\"\\?\"?|\/\*\s|\w*)\b'
   - language: Smarty
-    pattern: '(?<!\{)\{(\*\s|\$|\/)?\w*\b'
+    pattern: '(\A|[^{])\{(\*\s|\$|\/)?\w*\b'
 - extensions: ['.ts']
   rules:
   - language: XML
