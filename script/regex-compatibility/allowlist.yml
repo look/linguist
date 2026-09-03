@@ -23,9 +23,6 @@ exceptions:
     location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Adblock Filter List]/pattern"
     digest: b8b76168e43899473f8905a6252ee44c348547d14330dbd240170e8191103772
   - engine: rust
-    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.pkl]/rules[language=Pkl]/pattern[1]"
-    digest: 5d3f7338e7ac33f6dec63e11776377e9809d512532901cb45d899add4e1aa811
-  - engine: rust
     location: "lib/linguist/heuristics.yml/disambiguations[extensions=.r]/rules[language=Rez]/pattern"
     digest: eb69fdcaa49d8065cb9d17a7f697a31206b54326533cf3c8eec69739b7d96d0c
   - engine: rust
