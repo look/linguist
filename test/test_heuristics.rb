@@ -981,10 +981,10 @@ class TestHeuristics < Minitest::Test
   def test_r_rez_patterns
     disambiguations = Heuristics.load_config["disambiguations"]
     rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
-    assert_equal ["Rebol", "Rez", "Rez", "R"], rules.map { |rule| rule["language"] }
-    rez_rules = rules.select { |rule| rule["language"] == "Rez" }
-    declaration_pattern = Regexp.new(rez_rules.first["pattern"])
-    include_pattern = Regexp.new(rez_rules.last["pattern"])
+    assert_equal ["Rebol", "Rez", "R"], rules.map { |rule| rule["language"] }
+    rez_patterns = rules.find { |rule| rule["language"] == "Rez" }["pattern"]
+    declaration_pattern = Regexp.new(rez_patterns.first)
+    include_pattern = Regexp.new(rez_patterns.last)
 
     assert_match declaration_pattern, "resource 'ABCD' {\r\n"
     assert_match declaration_pattern, "type 'TEXT'\r\n{\r\n  string;\r\n};\r\n"
