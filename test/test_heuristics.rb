@@ -905,6 +905,7 @@ class TestHeuristics < Minitest::Test
     assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "# comment\nmodule test"), candidates)
     assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "/* unterminated\nmodule test"), candidates)
     assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "#{" " * 40_000}not Pkl"), candidates)
+    assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "\xC2\xA0module test".b), candidates)
   end
 
   def test_pl_by_heuristics

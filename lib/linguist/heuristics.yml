@@ -713,9 +713,7 @@ disambiguations:
 - extensions: ['.pkl']
   rules:
     - language: Pkl
-      and:
-      - pattern: '\A(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)*(?:(?:module|import|amends|extends|external|abstract|open|local|hidden|fixed|const|class|typealias|function)\b|@|(?:[A-Za-z_$][A-Za-z0-9_$]*|`[^`\r\n]+`)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)*(?:=|\{|:))'
-      - pattern: '\A(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)*(?:(?:(?:abstract|open)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)+)*module\b|(?:import|amends|extends)\b|@(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)*(?:[A-Za-z_$][A-Za-z0-9_$]*|`[^`\r\n]+`)|(?:(?:abstract|open|local|external)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)+)*class\b|(?:(?:local|external)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)+)*typealias\b|(?:(?:abstract|local|external|const)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)+)*function(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)+(?:[A-Za-z_$][A-Za-z0-9_$]*|`[^`\r\n]+`)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)*\(|(?:(?:abstract|local|hidden|external|fixed|const)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)+)*(?:[A-Za-z_$][A-Za-z0-9_$]*|`[^`\r\n]+`)(?:\s|//[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)*(?:=|\{|:))'
+      pattern: '\A[ \t-\r]*(?:(?://[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)[ \t-\r]*)*(?:(?:module|import|amends|extends|class|typealias|function|external|abstract|open|local|hidden|fixed|const)\b|@|(?:[a-z_$][A-Za-z0-9_$]*|`[^`\r\n]+`)[ \t-\r]*(?:=|\{|:))'
     - language: Pickle
 - extensions: ['.pl']
   rules:
