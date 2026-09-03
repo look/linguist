@@ -803,8 +803,8 @@ disambiguations:
     pattern: '(?i:\bRebol\b)'
   - language: Rez
     pattern:
-    - '(?m:(?:^|\r)[ \t]*(?:resource|data|type)[ \t]+''[^''\r\n]{4}''[ \t]*(?:(?:\r\n?|\n)[ \t]*)*(?:\([^\r\n]*\)[ \t]*(?:(?:\r\n?|\n)[ \t]*)*)?\{)'
-    - '(?m:(?:^|\r)[ \t]*#[ \t]*include[ \t]+["<](?:Types\.r|Carbon/Carbon\.r)[">])'
+    - '(?:\A|[\r\n])[ \t]*(?:resource|data|type)[ \t]+''[^''\r\n]{4}''[ \t\r\n]*(?:\([^\r\n]*\)[ \t\r\n]*)?\{'
+    - '(?:\A|[\r\n])[ \t]*#[ \t]*include[ \t]+["<](?:Types\.r|Carbon/Carbon\.r)[">]'
   - language: R
     pattern: '<-|^\s*#'
 - extensions: ['.re']
