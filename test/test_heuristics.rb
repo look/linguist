@@ -978,6 +978,7 @@ class TestHeuristics < Minitest::Test
     })
   end
 
+  # Rez files from classic Mac OS may use CR-only line endings.
   def test_r_cr_only_by_heuristics
     blob_class = Struct.new(:name, :data) do
       def symlink?
