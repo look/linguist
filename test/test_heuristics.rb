@@ -894,6 +894,20 @@ class TestHeuristics < Minitest::Test
     })
   end
 
+  def test_pkl_leading_comments_by_heuristics
+    candidates = [Language["Pkl"], Language["Pickle"]]
+    pkl = [Language["Pkl"]]
+    pickle = [Language["Pickle"]]
+
+    assert_equal pkl, Heuristics.call(Blob.new("test.pkl", "\r\n// comment\r\nmodule test"), candidates)
+    assert_equal pkl, Heuristics.call(Blob.new("test.pkl", "/* comment */\nmodule test"), candidates)
+    assert_equal pkl, Heuristics.call(Blob.new("test.pkl", "// #{"x" * 40_000}\nmodule test"), candidates)
+    assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "# comment\nmodule test"), candidates)
+    assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "/* unterminated\nmodule test"), candidates)
+    assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "#{" " * 40_000}not Pkl"), candidates)
+    assert_equal pickle, Heuristics.call(Blob.new("test.pkl", "\xC2\xA0module test".b), candidates)
+  end
+
   def test_pl_by_heuristics
     assert_heuristics({
       "Prolog" => all_fixtures("Prolog", "*.pl"),

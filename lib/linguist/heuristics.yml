@@ -713,9 +713,7 @@ disambiguations:
 - extensions: ['.pkl']
   rules:
     - language: Pkl
-      pattern:
-      - '^\s*(module|import|amends|extends|local|const|fixed|abstract|open|class|typealias|@\w+)\b'
-      - '^\s*[a-zA-Z0-9_$]+\s*(=|{|:)|^\s*`[^`]+`\s*(=|{|:)|for\s*\(|when\s*\('
+      pattern: '\A[ \t-\r]*(?:(?://[^\r\n]*(?:\r\n?|\n)|/\*(?:[^*]|\*+[^*/])*\*+/)[ \t-\r]*)*(?:(?:module|import|amends|extends|class|typealias|function|external|abstract|open|local|hidden|fixed|const)\b|@|(?:[a-z_$][A-Za-z0-9_$]*|`[^`\r\n]+`)[ \t-\r]*(?:=|\{|:))'
     - language: Pickle
 - extensions: ['.pl']
   rules:
@@ -1057,26 +1055,7 @@ disambiguations:
 
       (?:$|\s)
   - language: Adblock Filter List
-    pattern: |-
-      (?x)\A
-      \[
-      (?<version>
-        (?:
-          [Aa]d[Bb]lock
-          (?:[ \t][Pp]lus)?
-          |
-          u[Bb]lock
-          (?:[ \t][Oo]rigin)?
-          |
-          [Aa]d[Gg]uard
-        )
-        (?:[ \t] \d+(?:\.\d+)*+)?
-      )
-      (?:
-        [ \t]?;[ \t]?
-        \g<version>
-      )*+
-      \]
+    pattern: '\A\[(?:[Aa]d[Bb]lock(?:[ \t][Pp]lus)?|u[Bb]lock(?:[ \t][Oo]rigin)?|[Aa]d[Gg]uard)(?:[ \t][0-9]+(?:\.[0-9]+)*)?(?:[ \t]?;[ \t]?(?:[Aa]d[Bb]lock(?:[ \t][Pp]lus)?|u[Bb]lock(?:[ \t][Oo]rigin)?|[Aa]d[Gg]uard)(?:[ \t][0-9]+(?:\.[0-9]+)*)?)*\]'
     # HACK: This is a contrived use of heuristics needed to address
     # an unusual edge-case. See https://git.io/JULye for discussion.
   - language: Text
