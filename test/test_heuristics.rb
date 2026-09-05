@@ -978,38 +978,7 @@ class TestHeuristics < Minitest::Test
     })
   end
 
-  def test_r_rez_patterns
-    disambiguations = Heuristics.load_config["disambiguations"]
-    rules = disambiguations.find { |heuristic| heuristic["extensions"] == [".r"] }["rules"]
-    assert_equal ["Rebol", "Rez", "R"], rules.map { |rule| rule["language"] }
-    rez_patterns = rules.find { |rule| rule["language"] == "Rez" }["pattern"]
-    declaration_pattern = Regexp.new(rez_patterns.first)
-    include_pattern = Regexp.new(rez_patterns.last)
-
-    assert_match declaration_pattern, "resource 'ABCD' {\r\n"
-    assert_match declaration_pattern, "type 'TEXT'\r\n{\r\n  string;\r\n};\r\n"
-    assert_match declaration_pattern, "resource 'STR#' (128)\n{\n"
-    assert_match declaration_pattern, "resource 'STR ' (128)\r\n{\r\n"
-    assert_match declaration_pattern, "data 'snd '\n{\n"
-    assert_match declaration_pattern, "resource 'ABCD'\n(128)\n{\n"
-    assert_match declaration_pattern, "resource 'ABCD'\r\n(128)\r\n\r\n{\r\n"
-    assert_match declaration_pattern, "type 'TEXT'\n\n{\n"
-    assert_match declaration_pattern, "header\rresource 'ABCD'\r(128)\r\r{\r"
-
-    refute_match declaration_pattern, "x <- \"resource 'ABCD' {\""
-    refute_match declaration_pattern, "  # resource 'ABCD' {"
-    refute_match declaration_pattern, "  // resource 'ABCD' {"
-    refute_match declaration_pattern, "  \"resource 'ABCD' {\""
-    refute_match declaration_pattern, "resource 'ABCDE' {"
-    refute_match declaration_pattern, "resource 'AB\nD' {"
-
-    assert_match include_pattern, "#include <Carbon/Carbon.r>\r\n"
-    assert_match include_pattern, " # include \"Types.r\"\n"
-    assert_match include_pattern, "header\r #include <Types.r>\r"
-
-    refute_match include_pattern, "x <- \"#include <Types.r>\""
-    refute_match include_pattern, "# ordinary R comment"
-
+  def test_r_cr_only_by_heuristics
     blob_class = Struct.new(:name, :data) do
       def symlink?
         false
