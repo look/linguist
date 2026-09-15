@@ -3,13 +3,4 @@
 version: 1
 # Each exception is bound to its engine, location, composition, and source bytes.
 # Changing, moving, or fixing a pattern makes its entry stale.
-exceptions:
-  - engine: ruby
-    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Hosts File]/pattern"
-    digest: 639d595cd239eb3976c37ae9a105b6bc439aa574dadbc3913e1c6c5556deaf74
-  - engine: go
-    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Hosts File]/pattern"
-    digest: cc094871efc9d2462c256e097bb2319710c032ef680e5af2d16431f1cee5d988
-  - engine: rust
-    location: "lib/linguist/heuristics.yml/disambiguations[extensions=.txt]/rules[language=Hosts File]/pattern"
-    digest: cc094871efc9d2462c256e097bb2319710c032ef680e5af2d16431f1cee5d988
+exceptions: []
